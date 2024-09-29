@@ -5,7 +5,7 @@
         <!-- Insert Message from server -->
       </div>
       <div class="input-wrapper">
-        <p class="prefix">anson server %</p>
+        <p class="prefix">anson Server %</p>
         <input
           id="inputField"
           class="input-field"
@@ -22,7 +22,8 @@
 </template>
 
 <script lang="ts">
-import type { ComponentData } from '@/models/componentData'
+import type { ComponentData } from '@/model'
+import appStore from '@/store/appStore'
 import { Logger, now } from '@/utils/logger'
 
 interface TerminalComponentData extends ComponentData {
@@ -36,7 +37,8 @@ export default {
   data(): TerminalComponentData {
     return {
       logger: new Logger('Terminal'),
-      socket: new WebSocket('ws://localhost:8080/ws'),
+      socket: new WebSocket('ws://1.65.137.238:1030/ws'),
+      appStore: appStore,
       isFocus: false,
       input: ''
     }
@@ -71,7 +73,7 @@ export default {
     this.socket.onclose = () => {
       this.logger.info('WebSocket connection closed')
     }
-    this.socket.onerror = (error) => {
+    this.socket.onerror = (error: Event) => {
       this.logger.info(`Error occurred during Websocket connection: ${error}`)
     }
   }
@@ -85,7 +87,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
   width: 100%;
   height: 100%;
 }
@@ -93,9 +94,9 @@ export default {
 #terminal {
   display: flex;
   flex-direction: column;
-  border-radius: 16px;
+  border-radius: 12px;
   padding: 10px;
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.811);
   width: 100%;
   height: 100%;
   overflow-y: auto;
@@ -106,7 +107,7 @@ export default {
   height: 30px;
   outline: none;
   border: none;
-  background-color: black;
+  background-color: transparent;
   color: white;
   font-size: 16px;
 }

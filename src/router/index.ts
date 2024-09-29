@@ -1,21 +1,41 @@
-import Home from '@/views/Home.vue'
+import appState from '@/store/appStore'
+import Dashboard from '@/views/Dashboard.vue'
+import Properties from '@/views/Properties.vue'
 import Terminal from '@/views/Terminal.vue'
+import VersionControl from '@/views/VersionControl.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
-const router = createRouter({
+export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home
+      name: 'Dashboard',
+      component: Dashboard
     },
     {
       path: '/terminal',
-      name: 'terminal',
+      name: 'Terminal',
       component: Terminal
+    },
+    {
+      path: '/properties',
+      name: 'Properties',
+      component: Properties
+    },
+    {
+      path: '/version-control',
+      name: 'VersionControl',
+      component: VersionControl
     }
   ]
 })
+
+router.beforeEach(async (to, from, next) => {
+  appState.currentRoute = to.name
+  next()
+})
+
+router.afterEach(() => {})
 
 export default router

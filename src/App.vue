@@ -1,8 +1,7 @@
 <script lang="ts">
 import { ref, type Ref } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
-import SideMenu from './components/SideMenu.vue'
-import Header from './components/Header.vue'
+import { SideMenu, Header } from '@/component'
 
 export default {
   name: 'App',
@@ -15,14 +14,14 @@ export default {
 
 <template>
   <div class="container">
-    <header>
-      <Header />
-    </header>
     <aside>
       <SideMenu />
     </aside>
     <main>
-      <RouterView />
+      <Header />
+      <div class="view-wrapper">
+        <RouterView />
+      </div>
     </main>
   </div>
 </template>
@@ -34,21 +33,25 @@ export default {
   height: 100%;
   width: 100%;
   display: grid;
-  grid-template-columns: 300px 1fr;
-  grid-template-rows: 50px 1fr;
-}
-
-header {
-  grid-area: 1 / 2 / 2 / 6;
-  background-color: #4669f5;
+  grid-template-columns: 280px 1fr;
+  grid-template-rows: 1fr;
 }
 
 aside {
-  grid-area: 1 / 1 / 6 / 2;
+  grid-area: 1 / 1 / 1 / 2;
 }
 
 main {
-  grid-area: 2 / 2 / 6 / 6;
+  display: grid;
+  grid-template-rows: 50px 1fr;
+  gap: 20px;
+  height: 100%;
+  padding: 16px;
   background-color: whitesmoke;
+}
+
+.view-wrapper {
+  height: 100%;
+  width: 100%;
 }
 </style>

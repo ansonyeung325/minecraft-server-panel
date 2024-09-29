@@ -1,44 +1,27 @@
 /* color palette from <https://github.com/vuejs/theme> */
 :root {
-  --vt-c-white: #ffffff;
-  --vt-c-white-soft: #f8f8f8;
-  --vt-c-white-mute: #f2f2f2;
+  --color-text: black;
+  --color-background: whitesmoke;
+  --color-card: white;
+  --color-main: rgb(103, 70, 237);
+  --color-main-light: rgba(167, 152, 226, 0.496);
+  --color-disable: rgb(202, 202, 202);
 
-  --vt-c-black: #181818;
-  --vt-c-black-soft: #222222;
-  --vt-c-black-mute: #282828;
+  /* Decoration */
+  --deco-card-border-radius: 8px;
 
-  --vt-c-indigo: #2c3e50;
+  /* Font */
+  --font-size-title-1: 26pt;
+  --font-size-title-2: 20pt;
+  --font-size-headline: 16pt;
+  --font-size-body: 13pt;
+  --font-size-caption: 10pt;
 
-  --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
-  --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
-  --vt-c-divider-dark-1: rgba(84, 84, 84, 0.65);
-  --vt-c-divider-dark-2: rgba(84, 84, 84, 0.48);
-
-  --vt-c-text-light-1: var(--vt-c-indigo);
-  --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
-  --vt-c-text-dark-1: var(--vt-c-white);
-  --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
-}
-
-/* font style for this project */
-:root {
-  --font-title-size: 18px;
-}
-
-/* semantic color variables for this project */
-:root {
-  --color-background: var(--vt-c-white);
-  --color-background-soft: var(--vt-c-white-soft);
-  --color-background-mute: var(--vt-c-white-mute);
-
-  --color-border: var(--vt-c-divider-light-2);
-  --color-border-hover: var(--vt-c-divider-light-1);
-
-  --color-heading: var(--vt-c-text-light-1);
-  --color-text: var(--vt-c-text-light-1);
-
-  --section-gap: 160px;
+  --font-weight-title-1: 600;
+  --font-weight-title-2: 600;
+  --font-weight-headline: normal;
+  --font-weight-body: normal;
+  --font-weight-caption: normal;
 }
 
 *,
@@ -73,4 +56,35 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.title1 {
+  font-size: var(--font-size-title-1);
+  font-weight: var(--font-weight-title-1);
+}
+
+.title2 {
+  font-size: var(--font-size-title-2);
+  font-weight: var(--font-weight-title-2);
+}
+
+.headline {
+  font-size: var(--font-size-headline);
+  font-weight: var(--font-weight-headline);
+}
+
+.body {
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-body);
+}
+
+.caption {
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-caption);
 }

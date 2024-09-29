@@ -10,6 +10,10 @@ export class Logger {
   info(message: string): void {
     console.log(`[${now(new Date())}][${this.title}/INFO] ${message}`)
   }
+
+  error(message: string): void {
+    console.log(`[${now(new Date())}][${this.title}/ERROR] ${message}`)
+  }
 }
 
 export const now = (date: Date) => {
