@@ -1,6 +1,6 @@
 <template>
   <div id="skeleton">
-    <div v-if="contentReady" class="overlay"></div>
+    <div v-if="isLoading" class="overlay"></div>
     <slot></slot>
   </div>
 </template>
@@ -8,7 +8,7 @@
 <script lang="ts">
 export default {
   props: {
-    contentReady: Boolean
+    isLoading: Boolean
   },
   data() {
     return {}
@@ -18,14 +18,12 @@ export default {
 </script>
 
 <style scoped>
-@import url('../assets/base.css');
+@import '../index.css';
 
 #skeleton {
   position: relative;
-  width: fit-content;
-  height: fit-content;
-  padding: 0 6px;
-  border-radius: 4px;
+  padding: 1px;
+  border-radius: var(--card-border-radius);
 }
 
 .overlay {

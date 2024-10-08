@@ -1,0 +1,89 @@
+/* color palette from <https://github.com/vuejs/theme> */
+:root {
+  --color-text: #363636;
+  --color-background: whitesmoke;
+  --color-background-dark: #363636;
+  --color-container: white;
+  --color-main: rgb(103, 70, 237);
+  --color-main-light: rgba(167, 152, 226, 0.496);
+  --color-disable: rgb(202, 202, 202);
+
+  /* Decoration */
+  --card-border-radius: 10px;
+
+  /* Font */
+  --font-size-headline-5: 24pt;
+  --font-size-headline-6: 20pt;
+  --font-size-subtitle-1: 16pt;
+  --font-size-subtitle-2: 14pt;
+  --font-size-body-1: 16pt;
+  --font-size-body-2: 14pt;
+  --font-size-caption: 12pt;
+  --font-size-button: 14pt;
+  --font-size-overline: 10pt;
+
+  --font-weight-headline-5: normal;
+  --font-weight-headline-6: 500;
+  --font-weight-subtitle-1: normal;
+  --font-weight-subtitle-2: 500;
+  --font-weight-body-1: normal;
+  --font-weight-body-2: normal;
+  --font-weight-caption: normal;
+  --font-weight-button: 500;
+  --font-weight-overline: normal;
+
+  /* Size */
+  --sidemenu-width: 280px;
+  --header-height: 80px;
+
+  /* Breakpoint */
+  --tablet-breakpoint: 768px;
+  --tablet-breakpoint: 1024px;
+  --desktop-breakpoint: 1200px;
+  --max-breakpoint: 1710px;
+}
+
+#app {
+  height: 100vh;
+  margin: 0 auto;
+  font-weight: normal;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: normal;
+  word-spacing: 2px;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  color: var(--color-text);
+  background: var(--color-background);
+  transition:
+    color 0.5s,
+    background-color 0.5s;
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Fira Sans',
+    'Droid Sans',
+    'Helvetica Neue',
+    sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

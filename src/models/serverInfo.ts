@@ -14,28 +14,29 @@ export interface ServerInfo {
     cacheexpire: number
     apiversion: number
     error: {
+      ping: string
       query: string
     }
   }
-  motd: {
+  motd?: {
     raw: Array<string>
     clean: Array<string>
     html: Array<string>
   }
-  players: {
+  players?: {
     online: number
     max: number
-    list: Array<Player> | null
+    list: Array<Player>
   }
-  version: string
+  version?: string
   online: boolean
-  protocol: {
+  protocol?: {
     version: number
     name: string
   }
-  icon: string
-  mods: Array<Mod>
-  eula_blocked: boolean
+  icon?: string
+  mods?: Array<Mod>
+  eula_blocked?: boolean
 }
 
 interface Mod {

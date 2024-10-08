@@ -1,5 +1,5 @@
 <template>
-  <img :src="imgsrc" :alt="alt" />
+  <img :src="imgsrc" :alt="alt" style="object-fit: contain; width: 100%; height: 100%" />
 </template>
 <script lang="ts">
 import defaultImg from '@/assets/default-server-icon.png'
@@ -7,10 +7,12 @@ import defaultImg from '@/assets/default-server-icon.png'
 export default {
   props: {
     src: {
-      type: String
+      type: String,
+      default: null
     },
     alt: {
-      type: String
+      type: String,
+      default: null
     }
   },
   data() {

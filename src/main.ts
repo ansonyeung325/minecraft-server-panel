@@ -1,10 +1,10 @@
-import './assets/main.css'
+import '@/index.css'
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faAngleUp, faTerminal } from '@fortawesome/free-solid-svg-icons'
+import { faAngleUp, faBars, faTerminal } from '@fortawesome/free-solid-svg-icons'
 import { faHouse } from '@fortawesome/free-solid-svg-icons/faHouse'
 import { faGears } from '@fortawesome/free-solid-svg-icons/faGears'
 
@@ -12,6 +12,7 @@ library.add(faTerminal)
 library.add(faHouse)
 library.add(faGears)
 library.add(faAngleUp)
+library.add(faBars)
 
 const app = createApp(App)
 

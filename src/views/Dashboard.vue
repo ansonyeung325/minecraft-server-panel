@@ -2,62 +2,75 @@
   <div class="wrapper">
     <!-- Information of server  -->
     <div class="info-container">
-      <Skeleton :content-ready="isLoading">
-        <Image :src="appStore.serverInfo?.icon" class="server-icon" />
+      <Skeleton class="server-img">
+        <Image :src="appStore.serverInfo?.icon" />
       </Skeleton>
-      <div class="info">
-        <div v-if="appStore.serverInfo?.online" class="online">
-          <div>
-            <!-- Color dot -->
-          </div>
-          <p class="headline" style="font-weight: bold">Online</p>
+      <div class="server-info">
+        <div class="status" :style="{ color: appStore.serverInfo?.online ? 'green' : 'red' }">
+          <div
+            class="dot"
+            :style="{ backgroundColor: appStore.serverInfo?.online ? 'green' : 'red' }"
+          ></div>
+          <p class="subtitle2">Online</p>
         </div>
-        <div v-else class="offline">
-          <div>
-            <!-- Color dot -->
-          </div>
-          <p class="headline" style="font-weight: bold">Online</p>
-        </div>
-        <Skeleton :content-ready="isLoading">
-          <div class="textbody">
+        <Skeleton :isLoading="isLoading">
+          <div class="cation">
             {{ `${appStore.serverInfo?.ip}:${appStore.serverInfo?.port}` }}
           </div>
         </Skeleton>
-        <Skeleton :content-ready="isLoading">
-          <div v-html="appStore.serverInfo?.motd.html" class="headline"></div>
+        <Skeleton :isLoading="isLoading">
+          <!-- v-html="appStore.serverInfo?.motd.html" -->
+          <!-- v-if="appStore.serverInfo?.motd?.html" -->
+          <div class="body2">
+            egegegegegegegegeggegeegegegegegegegegeggegeegegegegegegegegeggegeegegegegegegegegeggege
+          </div>
         </Skeleton>
-        <Skeleton :content-ready="isLoading">
-          <div class="caption">{{ `version: ${appStore.serverInfo?.version}` }}</div>
-        </Skeleton>
+        <div style="display: flex">
+          <Skeleton :isLoading="isLoading">
+            <div class="caption">
+              {{ `version: ${appStore.serverInfo?.version ? appStore.serverInfo?.version : ''}` }}
+            </div>
+          </Skeleton>
+        </div>
       </div>
     </div>
-    <!-- Online Player List -->
-    <div class="players-container">
-      <div style="display: flex; align-items: baseline">
-        <p class="headline" style="margin: 0 auto 0 0">Players</p>
-        <Skeleton :content-ready="isLoading">
-          <p class="caption">
-            {{ appStore.serverInfo?.players.online + ' / ' + appStore.serverInfo?.players.max }}
-          </p>
-        </Skeleton>
+
+    <div class="right-side">
+      <!-- Online Player List -->
+      <div class="player-container">
+        <div>
+          <p class="subtitle2">Players</p>
+          <Skeleton v-if="appStore.serverInfo?.players" :isLoading="isLoading">
+            <p class="caption">
+              {{ appStore.serverInfo?.players.online + ' / ' + appStore.serverInfo?.players.max }}
+            </p>
+          </Skeleton>
+        </div>
+        <ul v-if="appStore.serverInfo?.players?.list" class="player-list">
+          <PlayerListTile
+            v-for="player in appStore.serverInfo?.players.list"
+            :key="player.uuid"
+            :name="player.name"
+          />
+        </ul>
       </div>
-      <ul v-if="appStore.serverInfo?.players.list != null" class="player-list">
-        <PlayerListTile
-          v-for="player in appStore.serverInfo?.players.list || []"
-          :key="player.uuid"
-          :name="player.name"
-        />
-      </ul>
+      <!-- Activity of server or user -->
+      <div class="activity-container"></div>
     </div>
-    <!-- Logs and activities from server  -->
-    <div class="logs-container"></div>
+
+    <!-- Logs from server  -->
+    <div class="log-container">
+      <Terminal />
+    </div>
   </div>
 </template>
+
 <script lang="ts">
 import { Skeleton, Image, PlayerListTile } from '@/component'
 import type { ComponentData, ServerInfo } from '@/model'
 import appStore from '@/store/appStore'
 import { Logger } from '@/utils/logger'
+import Terminal from '../components/Terminal.vue'
 
 interface DashboardComponentData extends ComponentData {
   isLoading: boolean
@@ -68,7 +81,8 @@ export default {
   components: {
     PlayerListTile,
     Skeleton,
-    Image
+    Image,
+    Terminal
   },
   data(): DashboardComponentData {
     return {
@@ -95,87 +109,84 @@ export default {
   },
   mounted() {
     this.getMinecraftserverInfo()
-  }
+  },
+  computed: {}
 }
 </script>
 <style scoped>
-@import url(../assets/base.css);
+@import '../index.css';
 
 .wrapper {
   height: 100%;
   width: 100%;
-  padding: 10px;
   display: grid;
   gap: 14px;
-  grid-template-columns: 1fr 40%;
-  grid-template-rows: 200px 1fr;
+  grid-template-columns: minmax(0, 2fr) 1fr;
+  grid-template-rows: 160px 1fr;
 }
 
 .info-container {
   display: flex;
-  width: 100%;
+  gap: 10px;
   padding: 20px;
-  border-radius: var(--deco-card-border-radius);
-  grid-area: 1 / 1 / 1 / 1;
-  background-color: var(--color-card);
+  border-radius: var(--card-border-radius);
+  grid-area: 1 / 1 / 2 / 2;
+  background-color: var(--color-container);
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
-.server-icon {
+.server-img {
   width: 160px;
-  max-height: 200px;
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
 
-.info {
+.server-info {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  width: 100%;
-  height: 100%;
-  padding: 10px;
+  gap: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.online {
+.status {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-.online div {
+.dot {
   border-radius: 50%;
-  background-color: green;
   height: 16px;
   width: 16px;
 }
 
-.online p {
-  color: green;
-}
-
-.offline {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.offline div {
-  border-radius: 50%;
-  background-color: red;
-  height: 16px;
-  width: 16px;
-}
-
-.offline p {
-  color: red;
-}
-
-.players-container {
+.right-side {
   width: 100%;
   height: 100%;
-  padding: 10px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   grid-area: 1 / 2 / 3 / 3;
-  background-color: var(--color-card);
-  border-radius: var(--deco-card-border-radius);
+}
+
+.activity-container {
+  width: 100%;
+  height: 50%;
+  padding: 20px;
+  background-color: var(--color-container);
+  border-radius: var(--card-border-radius);
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.player-container {
+  width: 100%;
+  height: 50%;
+  padding: 20px;
+  background-color: var(--color-container);
+  border-radius: var(--card-border-radius);
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
@@ -186,22 +197,29 @@ export default {
   height: 100%;
 }
 
-.logs-container {
+.log-container {
   width: 100%;
   height: 100%;
-  background-color: var(--color-card);
-  border-radius: var(--deco-card-border-radius);
-  grid-area: 2 / 1 / 3 / 1;
+  background-color: var(--color-container);
+  border-radius: var(--card-border-radius);
+  grid-area: 2 / 1 / 3 / 2;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
-@media screen and (max-width: 1356px) {
-  .info-container {
-    grid-area: 1/1/2/3;
+@media screen and (max-width: 1200px) {
+  .wrapper {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: 160px 1fr 2fr;
   }
 
-  .players-container {
-    grid-area: 2/2/3/3;
+  .info-container {
+    grid-area: 1 / 1 / 2 / 2;
+  }
+  .player-container {
+    grid-area: 2 / 1 / 3 / 2;
+  }
+  .log-container {
+    grid-area: 3 / 1 / 4 / 2;
   }
 }
 </style>

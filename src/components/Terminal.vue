@@ -1,22 +1,20 @@
 <template>
-  <div class="warpper">
-    <div id="terminal">
-      <div id="server-message">
-        <!-- Insert Message from server -->
-      </div>
-      <div class="input-wrapper">
-        <p class="prefix">anson Server %</p>
-        <input
-          id="inputField"
-          class="input-field"
-          type="text"
-          v-model="input"
-          @focus="isFocus = true"
-          @blur="isFocus = false"
-          @keydown.enter="sendMessage"
-          autocomplete="off"
-        />
-      </div>
+  <div class="terminal-container">
+    <div id="server-message">
+      <!-- Insert Message from server -->
+    </div>
+    <div class="input-wrapper">
+      <font-awesome-icon icon="terminal" class="prefix" />
+      <input
+        id="inputField"
+        class="input-field"
+        type="text"
+        v-model="input"
+        @focus="isFocus = true"
+        @blur="isFocus = false"
+        @keydown.enter="sendMessage"
+        autocomplete="off"
+      />
     </div>
   </div>
 </template>
@@ -37,7 +35,7 @@ export default {
   data(): TerminalComponentData {
     return {
       logger: new Logger('Terminal'),
-      socket: new WebSocket('ws://1.65.137.238:1030/ws'),
+      socket: new WebSocket('ws://localhost:8080/ws'),
       appStore: appStore,
       isFocus: false,
       input: ''
@@ -52,11 +50,6 @@ export default {
         `<div>[${now(new Date())}] ${this.input}</div>`
       this.socket.send(this.input)
       this.input = ''
-      setTimeout(this.scrollToBottom, 100)
-    },
-    scrollToBottom() {
-      const container: HTMLElement = document.getElementById('terminal')!
-      container.scrollTo(0, container.scrollHeight)
     }
   },
   mounted() {
@@ -81,20 +74,12 @@ export default {
 </script>
 
 <style scoped>
-@import '../assets//base.css';
+@import '../index.css';
 
-.warpper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-}
-
-#terminal {
+.terminal-container {
   display: flex;
   flex-direction: column;
-  border-radius: 12px;
+  border-radius: var(--card-border-radius);
   padding: 10px;
   background-color: rgba(0, 0, 0, 0.811);
   width: 100%;
@@ -110,23 +95,21 @@ export default {
   background-color: transparent;
   color: white;
   font-size: 16px;
-}
-
-.prefix {
-  flex-shrink: none;
-  flex-grow: none;
-  flex-wrap: none;
-  color: white;
-  margin-right: 2px;
+  font-weight: 500;
 }
 
 .input-wrapper {
   display: flex;
+  padding: 6px 14px;
+  border-radius: 4px;
+  background-color: #7b7b7b;
   align-items: center;
 }
 
 #server-message {
   display: flex;
+  height: 100%;
+  width: 100%;
   flex-direction: column;
   color: white;
 }

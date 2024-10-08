@@ -1,43 +1,43 @@
 <template>
-  <div class="side-menu-container">
-    <div class="brand">
-      <h1>Panel</h1>
-    </div>
-    <router-link :to="'/'" :class="{ active: appStore.currentRoute === 'Dashboard' }" class="link">
-      <font-awesome-icon icon="house" class="prefix" />Dashboard
-    </router-link>
-    <!-- <ul class="extend-button">
-      <li class="extend-item" @click="toggleSettingList = !toggleSettingList">
-        <font-awesome-icon icon="gears" class="prefix" />
-        <div>Setting</div>
-        <div class="arrow" :class="{ rotate: toggleSettingList }">
-          <font-awesome-icon icon="angle-up" />
-        </div>
-      </li>
-      Setting page list  -->
-    <router-link
+  <div class="sidemenu-container" :class="{ 'open-sidemenu-container': appStore.openSidemenu }">
+    <div class="brand headline6">Panel</div>
+    <div class="nav-list">
+      <router-link
+        :to="'/'"
+        :class="{ active: appStore.currentRoute === 'Dashboard' }"
+        class="link"
+      >
+        <font-awesome-icon icon="house" class="prefix" />
+        <div class="nav-item-name subtitle2">Dashboard</div>
+      </router-link>
+      <!-- <router-link
       :to="'properties'"
       :class="{ active: appStore.currentRoute === 'Properties' }"
       class="link"
     >
-      <font-awesome-icon icon="gears" class="prefix" />Properties
+      <font-awesome-icon icon="gears" class="nav-item-prefix" />Properties
     </router-link>
     <router-link
       :to="'version-control'"
       :class="{ active: appStore.currentRoute === 'VersionControl' }"
       class="link"
     >
-      <font-awesome-icon icon="gears" class="prefix" />Version Control
+      <font-awesome-icon icon="gears" class="nav-item-prefix" />Version Control
     </router-link>
-    <!-- </ul> -->
     <router-link
       :to="'terminal'"
       :class="{ active: appStore.currentRoute === 'Terminal' }"
       class="link"
     >
-      <font-awesome-icon icon="terminal" class="prefix" />Terminal
-    </router-link>
+      <font-awesome-icon icon="terminal" class="nav-item-prefix" />Terminal
+    </router-link> -->
+    </div>
   </div>
+  <div
+    @click="appStore.openSidemenu = !appStore.openSidemenu"
+    class="sidemenu-overlay"
+    :class="{ 'open-sidemenu-overlay': appStore.openSidemenu }"
+  ></div>
 </template>
 
 <script lang="ts">
@@ -62,96 +62,99 @@ export default {
 </script>
 
 <style scoped>
-@import url(../assets/base.css);
+@import '../index.css';
 
-.side-menu-container {
+.sidemenu-container {
   width: 100%;
   height: 100%;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
+  grid-area: 1 / 1 / 3 / 2;
   background-color: white;
-}
-.nav-items {
-  width: auto;
-}
-.brand {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  margin-bottom: 40px;
+  border-right: 1px solid var(--color-disable);
 }
 
-.prefix {
-  margin-right: 20px;
+.brand {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  height: 80px;
+}
+
+.nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
 }
 
 .link {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   width: 100%;
-  padding: 8px 20px;
-  margin-bottom: 10px;
+  padding: 14px;
   background-color: none;
   color: black;
   outline: none;
   text-decoration: none;
-  border-radius: 8px;
+  border-radius: var(--card-border-radius);
   transition:
     background-color 0.3s,
     color 0.3s;
+  overflow: hidden;
+  text-overflow: clip;
 }
 
 .link:hover,
-.sublink:hover,
 .active {
   background-color: var(--color-main);
   color: white !important;
 }
 
-.sublink {
-  width: calc(100% - 38px);
-  background-color: none;
-  color: black;
-  outline: none;
-  text-decoration: none;
-  border-radius: 8px;
-  margin-left: auto;
-  padding: 8px 20px;
-  transition:
-    background-color 0.3s,
-    color 0.3s;
-}
-
-.extend-button {
-  display: flex;
-  gap: 8px;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.extend-item {
-  display: flex;
-  width: 100%;
-  padding: 8px 20px;
-}
-
-.arrow {
-  margin-left: auto;
-  transition: all 0.3s;
-}
-
-.rotate {
-  transform: rotate(180deg);
-}
-
-@keyframes rotate {
-  from {
-    transform: rotate('0deg');
+@media screen and (max-width: 768px) {
+  .sidemenu-container {
+    width: 280px;
+    left: -280px;
+    height: 100%;
+    position: absolute;
+    z-index: 2;
+    grid-area: none;
+    transition: left 0.2s;
   }
 
-  to {
-    transform: rotate('180deg');
+  .open-sidemenu-container {
+    left: 0;
+  }
+
+  .open-sidemenu-overlay {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .nav-item-name {
+    display: block !important;
+  }
+
+  .link {
+    justify-content: start !important;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .nav-item-name {
+    display: none;
+  }
+
+  .nav-list {
+    padding: 14px;
+  }
+
+  .link {
+    justify-content: center;
   }
 }
 </style>

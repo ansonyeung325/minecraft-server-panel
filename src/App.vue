@@ -2,56 +2,66 @@
 import { ref, type Ref } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import { SideMenu, Header } from '@/component'
+import appStore from './store/appStore'
 
 export default {
   name: 'App',
   components: {
     SideMenu,
     Header
+  },
+  data() {
+    return {
+      appStore: appStore
+    }
   }
 }
 </script>
 
 <template>
-  <div class="container">
-    <aside>
-      <SideMenu />
-    </aside>
-    <main>
-      <Header />
-      <div class="view-wrapper">
-        <RouterView />
-      </div>
-    </main>
+  <div class="base">
+    <SideMenu />
+    <Header />
+    <div class="view-wrapper">
+      <RouterView />
+    </div>
   </div>
 </template>
 
 <style scoped>
-@import '../src/assets/base.css';
+@import './index.css';
 
-.container {
+.base {
   height: 100%;
   width: 100%;
   display: grid;
-  grid-template-columns: 280px 1fr;
-  grid-template-rows: 1fr;
-}
-
-aside {
-  grid-area: 1 / 1 / 1 / 2;
-}
-
-main {
-  display: grid;
-  grid-template-rows: 50px 1fr;
-  gap: 20px;
-  height: 100%;
-  padding: 16px;
-  background-color: whitesmoke;
+  grid-template-columns: var(--sidemenu-width) 1fr;
+  grid-template-rows: var(--header-height) 1fr;
+  transition: all 0.2s;
 }
 
 .view-wrapper {
   height: 100%;
   width: 100%;
+  padding: 20px;
+  justify-content: center;
+  grid-area: 2 / 2 /3 / 3;
+  background-color: whitesmoke;
+}
+
+@media screen and (max-width: 1024px) {
+  .base {
+    grid-template-columns: 80px 1fr;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .base {
+    grid-template-columns: 1fr;
+  }
+
+  .view-wrapper {
+    grid-area: 2 / 1 / 3 / 1;
+  }
 }
 </style>
