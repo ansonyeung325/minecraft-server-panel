@@ -21,7 +21,7 @@
 
 <script lang="ts">
 import type { ComponentData } from '@/model'
-import appStore from '@/store/appStore'
+import appStore from '@/store'
 import { Logger, now } from '@/utils/logger'
 
 interface TerminalComponentData extends ComponentData {
@@ -53,9 +53,6 @@ export default {
     }
   },
   mounted() {
-    const inputField = document.getElementById('inputField')
-    inputField?.focus()
-
     this.socket.onopen = () => {
       this.logger.info('WebSocket connection established')
     }
@@ -74,7 +71,7 @@ export default {
 </script>
 
 <style scoped>
-@import '../index.css';
+@import '@/index.css';
 
 .terminal-container {
   display: flex;
@@ -93,13 +90,14 @@ export default {
   outline: none;
   border: none;
   background-color: transparent;
-  color: white;
+  color: black;
   font-size: 16px;
   font-weight: 500;
 }
 
 .input-wrapper {
   display: flex;
+  gap: 10px;
   padding: 6px 14px;
   border-radius: 4px;
   background-color: #7b7b7b;

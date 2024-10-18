@@ -8,16 +8,17 @@
         class="link"
       >
         <font-awesome-icon icon="house" class="prefix" />
-        <div class="nav-item-name subtitle2">Dashboard</div>
+        <div class="nav-item-name caption">Dashboard</div>
+      </router-link>
+      <router-link
+        :to="'/configuration'"
+        :class="{ active: appStore.currentRoute === 'Configuration' }"
+        class="link"
+      >
+        <font-awesome-icon icon="gears" class="prefix" />
+        <div class="nav-item-name caption">Configuration</div>
       </router-link>
       <!-- <router-link
-      :to="'properties'"
-      :class="{ active: appStore.currentRoute === 'Properties' }"
-      class="link"
-    >
-      <font-awesome-icon icon="gears" class="nav-item-prefix" />Properties
-    </router-link>
-    <router-link
       :to="'version-control'"
       :class="{ active: appStore.currentRoute === 'VersionControl' }"
       class="link"
@@ -42,7 +43,7 @@
 
 <script lang="ts">
 import type { ComponentData, AppStore } from '@/model'
-import appStore from '@/store/appStore'
+import appStore from '@/store'
 import { Logger } from '@/utils/logger'
 
 interface SideMenuComponentData extends ComponentData {
@@ -62,13 +63,13 @@ export default {
 </script>
 
 <style scoped>
-@import '../index.css';
+@import '@/index.css';
 
 .sidemenu-container {
   width: 100%;
   height: 100%;
   grid-area: 1 / 1 / 3 / 2;
-  background-color: white;
+  background-color: var(--color-primary-light);
   border-right: 1px solid var(--color-disable);
 }
 
@@ -92,6 +93,7 @@ export default {
   align-items: center;
   gap: 10px;
   width: 100%;
+  height: 40px;
   padding: 14px;
   background-color: none;
   color: black;
@@ -107,8 +109,8 @@ export default {
 
 .link:hover,
 .active {
-  background-color: var(--color-main);
-  color: white !important;
+  background-color: var(--color-secondary);
+  color: var(--color-primary) !important;
 }
 
 @media screen and (max-width: 768px) {
@@ -117,7 +119,7 @@ export default {
     left: -280px;
     height: 100%;
     position: absolute;
-    z-index: 2;
+    z-index: 3;
     grid-area: none;
     transition: left 0.2s;
   }
@@ -131,7 +133,7 @@ export default {
     position: absolute;
     width: 100%;
     height: 100%;
-    z-index: 1;
+    z-index: 2;
     background-color: rgba(0, 0, 0, 0.5);
   }
 
@@ -150,7 +152,7 @@ export default {
   }
 
   .nav-list {
-    padding: 14px;
+    padding: 20px 18px;
   }
 
   .link {

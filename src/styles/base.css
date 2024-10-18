@@ -4,8 +4,10 @@
   --color-background: whitesmoke;
   --color-background-dark: #363636;
   --color-container: white;
-  --color-main: rgb(103, 70, 237);
-  --color-main-light: rgba(167, 152, 226, 0.496);
+  --color-primary: rgb(129, 65, 246);
+  --color-secondary: rgb(201, 180, 255);
+  --color-primary-light: rgb(242, 242, 252);
+  --color-hover: rgb(226, 226, 234);
   --color-disable: rgb(202, 202, 202);
 
   /* Decoration */
@@ -34,7 +36,8 @@
 
   /* Size */
   --sidemenu-width: 280px;
-  --header-height: 80px;
+  --small-sidemenu-width: 120px;
+  --header-height: 60px;
 
   /* Breakpoint */
   --tablet-breakpoint: 768px;
@@ -62,6 +65,18 @@ ul {
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+/* Hide the spin buttons in Chrome, Safari, Edge, and Opera */
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Hide the spin buttons in Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
 }
 
 body {

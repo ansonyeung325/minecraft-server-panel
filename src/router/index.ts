@@ -1,5 +1,6 @@
-import appState from '@/store/appStore'
+import appState from '@/store'
 import Dashboard from '@/views/Dashboard.vue'
+import Configuration from '@/views/Configuration.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 export const router = createRouter({
@@ -9,6 +10,11 @@ export const router = createRouter({
       path: '/',
       name: 'Dashboard',
       component: Dashboard
+    },
+    {
+      path: '/configuration',
+      name: 'Configuration',
+      component: Configuration
     }
   ]
 })

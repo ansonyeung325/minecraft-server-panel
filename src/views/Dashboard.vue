@@ -2,35 +2,37 @@
   <div class="wrapper">
     <!-- Information of server  -->
     <div class="info-container">
-      <Skeleton class="server-img">
-        <Image :src="appStore.serverInfo?.icon" />
-      </Skeleton>
+      <div class="server-img">
+        <Image :isLoading="isLoading" :src="appStore.serverInfo?.icon" :class="'server-img'" />
+      </div>
       <div class="server-info">
         <div class="status" :style="{ color: appStore.serverInfo?.online ? 'green' : 'red' }">
           <div
             class="dot"
             :style="{ backgroundColor: appStore.serverInfo?.online ? 'green' : 'red' }"
           ></div>
-          <p class="subtitle2">Online</p>
+          <p class="body2">Online</p>
         </div>
         <Skeleton :isLoading="isLoading">
-          <div class="cation">
+          <p class="caption">
             {{ `${appStore.serverInfo?.ip}:${appStore.serverInfo?.port}` }}
-          </div>
+          </p>
         </Skeleton>
         <Skeleton :isLoading="isLoading">
           <!-- v-html="appStore.serverInfo?.motd.html" -->
           <!-- v-if="appStore.serverInfo?.motd?.html" -->
-          <div class="body2">
-            egegegegegegegegeggegeegegegegegegegegeggegeegegegegegegegegeggegeegegegegegegegegeggege
-          </div>
+          <p class="caption">gegeegsegs</p>
         </Skeleton>
         <div style="display: flex">
           <Skeleton :isLoading="isLoading">
-            <div class="caption">
+            <p class="caption">
               {{ `version: ${appStore.serverInfo?.version ? appStore.serverInfo?.version : ''}` }}
-            </div>
+            </p>
           </Skeleton>
+        </div>
+        <div class="action-buttons">
+          <Button @click="runServer">Run</Button>
+          <Button @click="">Restart</Button>
         </div>
       </div>
     </div>
@@ -39,7 +41,7 @@
       <!-- Online Player List -->
       <div class="player-container">
         <div>
-          <p class="subtitle2">Players</p>
+          <p class="body2">Players</p>
           <Skeleton v-if="appStore.serverInfo?.players" :isLoading="isLoading">
             <p class="caption">
               {{ appStore.serverInfo?.players.online + ' / ' + appStore.serverInfo?.players.max }}
@@ -66,11 +68,12 @@
 </template>
 
 <script lang="ts">
-import { Skeleton, Image, PlayerListTile } from '@/component'
+import { Skeleton, Image, PlayerListTile, Button } from '@/component'
 import type { ComponentData, ServerInfo } from '@/model'
-import appStore from '@/store/appStore'
+import appStore from '@/store'
 import { Logger } from '@/utils/logger'
-import Terminal from '../components/Terminal.vue'
+import Terminal from '../components/core/Terminal.vue'
+import SwitchButton from '@/components/ui/SwitchButton.vue'
 
 interface DashboardComponentData extends ComponentData {
   isLoading: boolean
@@ -82,7 +85,9 @@ export default {
     PlayerListTile,
     Skeleton,
     Image,
-    Terminal
+    Terminal,
+    Button,
+    SwitchButton
   },
   data(): DashboardComponentData {
     return {
@@ -105,6 +110,9 @@ export default {
         }
       }
       this.isLoading = false
+    },
+    runServer() {
+      this.logger.info('Start the minecraft server')
     }
   },
   mounted() {
@@ -114,11 +122,12 @@ export default {
 }
 </script>
 <style scoped>
-@import '../index.css';
+@import '@/index.css';
 
 .wrapper {
   height: 100%;
   width: 100%;
+  padding: 20px;
   display: grid;
   gap: 14px;
   grid-template-columns: minmax(0, 2fr) 1fr;
@@ -128,7 +137,7 @@ export default {
 .info-container {
   display: flex;
   gap: 10px;
-  padding: 20px;
+  padding: 14px;
   border-radius: var(--card-border-radius);
   grid-area: 1 / 1 / 2 / 2;
   background-color: var(--color-container);
@@ -149,6 +158,15 @@ export default {
   gap: 2px;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.action-buttons {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 10px;
 }
 
 .status {
@@ -175,7 +193,7 @@ export default {
 .activity-container {
   width: 100%;
   height: 50%;
-  padding: 20px;
+  padding: 14px;
   background-color: var(--color-container);
   border-radius: var(--card-border-radius);
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -184,7 +202,7 @@ export default {
 .player-container {
   width: 100%;
   height: 50%;
-  padding: 20px;
+  padding: 14px;
   background-color: var(--color-container);
   border-radius: var(--card-border-radius);
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -206,18 +224,20 @@ export default {
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 960px) {
   .wrapper {
     grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: 160px 1fr 2fr;
+    grid-template-rows: 160px 400px 400px;
   }
 
   .info-container {
     grid-area: 1 / 1 / 2 / 2;
   }
-  .player-container {
+
+  .right-side {
     grid-area: 2 / 1 / 3 / 2;
   }
+
   .log-container {
     grid-area: 3 / 1 / 4 / 2;
   }

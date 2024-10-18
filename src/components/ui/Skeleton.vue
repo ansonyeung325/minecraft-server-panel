@@ -18,9 +18,11 @@ export default {
 </script>
 
 <style scoped>
-@import '../index.css';
+@import '@/index.css';
 
 #skeleton {
+  width: fit-content;
+  height: fit-content;
   position: relative;
   padding: 1px;
   border-radius: var(--card-border-radius);

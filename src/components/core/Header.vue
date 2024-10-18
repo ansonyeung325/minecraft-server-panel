@@ -5,13 +5,13 @@
     </div>
     <p class="page-name subtitle2">{{ appStore.currentRoute }}</p>
     <div class="avater"></div>
-    <div class="body2">Anson Yeung</div>
+    <div class="caption">Anson Yeung</div>
   </div>
 </template>
 
 <script lang="ts">
 import type { ComponentData } from '@/model'
-import appStore from '@/store/appStore'
+import appStore from '@/store'
 import { Logger } from '@/utils/logger'
 
 interface HeaderComponentData extends ComponentData {}
@@ -28,7 +28,7 @@ export default {
 </script>
 
 <style scoped>
-@import '../index.css';
+@import '@/index.css';
 
 .header-container {
   height: 100%;
@@ -69,6 +69,9 @@ export default {
   }
 
   .header-container {
+    position: sticky;
+    top: 0;
+    z-index: 1;
     grid-area: 1 / 1 / 2 / 1;
   }
 }

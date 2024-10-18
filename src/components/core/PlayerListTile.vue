@@ -1,13 +1,13 @@
 <template>
   <div class="player-list-tile">
     <img v-if="name" :src="avatarUrl" alt="player avatar" />
-    <div class="textbody playername">{{ name }}</div>
+    <div class="caption">{{ name }}</div>
   </div>
 </template>
 
 <script lang="ts">
 import type { ComponentData } from '@/model'
-import appStore from '@/store/appStore'
+import appStore from '@/store'
 import { Logger } from '@/utils/logger'
 
 interface PlayerListTileData extends ComponentData {
