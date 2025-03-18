@@ -41,7 +41,7 @@ export default {
   outline: none;
   font-size: 16px;
   padding: 10px 12px;
-  border-radius: var(--card-border-radius);
+  border-radius: var(--button-border-radius);
   border: 1px solid var(--color-background-dark);
 }
 </style>

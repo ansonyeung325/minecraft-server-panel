@@ -55,7 +55,7 @@ export default {
   height: fit-content;
   position: relative;
   padding: 1px;
-  border-radius: var(--card-border-radius);
+  border-radius: var(--button-border-radius);
 }
 
 .overlay {

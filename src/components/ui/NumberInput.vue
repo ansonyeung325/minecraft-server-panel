@@ -75,7 +75,7 @@ export default {
   display: flex;
   height: 40px;
   align-items: center;
-  border-radius: var(--card-border-radius);
+  border-radius: var(--button-border-radius);
   background-color: var(--color-container);
   border: 1px solid var(--color-background-dark);
 }

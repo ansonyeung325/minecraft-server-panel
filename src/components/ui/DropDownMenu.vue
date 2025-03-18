@@ -15,7 +15,7 @@ import type { PropType } from 'vue'
 export default {
   props: {
     options: {
-      type: Array<String>,
+      type: Array<string>,
       required: true
     },
     width: {
@@ -76,7 +76,7 @@ export default {
   padding: 10px 12px;
   background-color: var(--color-container);
   border: 1px solid black;
-  border-radius: var(--card-border-radius);
+  border-radius: var(--button-border-radius);
   cursor: pointer;
 }
 
@@ -85,7 +85,7 @@ export default {
   width: 100%;
   position: absolute;
   margin-top: 4px;
-  border-radius: var(--card-border-radius);
+  border-radius: var(--button-border-radius);
   background-color: var(--color-container);
   border: 1px solid var(--color-hover);
 }
@@ -96,12 +96,12 @@ export default {
 }
 
 .dropdown-menu li:last-child {
-  border-bottom-left-radius: var(--card-border-radius);
-  border-bottom-right-radius: var(--card-border-radius);
+  border-bottom-left-radius: var(--button-border-radius);
+  border-bottom-right-radius: var(--button-border-radius);
 }
 .dropdown-menu li:first-child {
-  border-top-left-radius: var(--card-border-radius);
-  border-top-right-radius: var(--card-border-radius);
+  border-top-left-radius: var(--button-border-radius);
+  border-top-right-radius: var(--button-border-radius);
 }
 
 .dropdown-menu li:hover {

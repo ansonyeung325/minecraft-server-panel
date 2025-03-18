@@ -1,6 +1,7 @@
 <template>
   <button class="action-button button-text" :disabled="disabled">
-    <slot></slot>
+    <slot name="icon" />
+    <p class="text">{{ text }}</p>
   </button>
 </template>
 <script lang="ts">
@@ -9,7 +10,7 @@ export default {
     disabled: {
       type: Boolean
     },
-    styleClass: {
+    text: {
       type: String
     }
   },
@@ -23,11 +24,17 @@ export default {
 @import '@/index.css';
 
 .action-button {
+  display: flex;
+  align-items: center;
   padding: 6px 12px;
   border: none;
   border-radius: var(--button-border-radius);
   cursor: pointer;
   color: white;
   background-color: var(--color-primary);
+}
+
+.text {
+  margin-left: 8px;
 }
 </style>

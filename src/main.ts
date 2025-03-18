@@ -7,17 +7,21 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import {
   faAngleDown,
   faAngleUp,
+  faArrowRightArrowLeft,
   faBars,
   faCheck,
   faMinus,
   faPlus,
+  faRightFromBracket,
   faTerminal,
-  faXmark
+  faXmark,
+  faPowerOff
 } from '@fortawesome/free-solid-svg-icons'
 import { faHouse } from '@fortawesome/free-solid-svg-icons/faHouse'
 import { faGears } from '@fortawesome/free-solid-svg-icons/faGears'
 
 library.add(
+  faPowerOff,
   faTerminal,
   faXmark,
   faHouse,
@@ -27,7 +31,9 @@ library.add(
   faCheck,
   faAngleDown,
   faMinus,
-  faPlus
+  faPlus,
+  faArrowRightArrowLeft,
+  faRightFromBracket
 )
 const app = createApp(App)
 app.use(router)

@@ -6,12 +6,21 @@
         <Image :isLoading="isLoading" :src="appStore.serverInfo?.icon" :class="'server-img'" />
       </div>
       <div class="server-info">
-        <div class="status" :style="{ color: appStore.serverInfo?.online ? 'green' : 'red' }">
-          <div
-            class="dot"
-            :style="{ backgroundColor: appStore.serverInfo?.online ? 'green' : 'red' }"
-          ></div>
-          <p class="body2">Online</p>
+        <div class="status" :style="{ color: statusColor }">
+          <div class="dot" :style="{ backgroundColor: statusColor }"></div>
+          <p class="body2">{{ statusText }}</p>
+          <div class="action-buttons">
+            <IconButton @click="runServer" :text="'Start'">
+              <template v-slot:icon>
+                <font-awesome-icon icon="power-off" />
+              </template>
+            </IconButton>
+            <IconButton :text="'Restart'">
+              <template v-slot:icon>
+                <font-awesome-icon icon="power-off" />
+              </template>
+            </IconButton>
+          </div>
         </div>
         <Skeleton :isLoading="isLoading">
           <p class="caption">
@@ -21,7 +30,7 @@
         <Skeleton :isLoading="isLoading">
           <!-- v-html="appStore.serverInfo?.motd.html" -->
           <!-- v-if="appStore.serverInfo?.motd?.html" -->
-          <p class="caption">gegeegsegs</p>
+          <p class="caption"></p>
         </Skeleton>
         <div style="display: flex">
           <Skeleton :isLoading="isLoading">
@@ -29,10 +38,6 @@
               {{ `version: ${appStore.serverInfo?.version ? appStore.serverInfo?.version : ''}` }}
             </p>
           </Skeleton>
-        </div>
-        <div class="action-buttons">
-          <Button @click="runServer">Run</Button>
-          <Button @click="">Restart</Button>
         </div>
       </div>
     </div>
@@ -68,7 +73,7 @@
 </template>
 
 <script lang="ts">
-import { Skeleton, Image, PlayerListTile, Button } from '@/component'
+import { Skeleton, Image, PlayerListTile, Button, IconButton } from '@/component'
 import type { ComponentData, ServerInfo } from '@/model'
 import appStore from '@/store'
 import { Logger } from '@/utils/logger'
@@ -87,7 +92,8 @@ export default {
     Image,
     Terminal,
     Button,
-    SwitchButton
+    SwitchButton,
+    IconButton
   },
   data(): DashboardComponentData {
     return {
@@ -118,7 +124,20 @@ export default {
   mounted() {
     this.getMinecraftserverInfo()
   },
-  computed: {}
+  computed: {
+    statusColor() {
+      if (this.appStore.serverInfo?.online) {
+        return 'green'
+      }
+      return 'red'
+    },
+    statusText() {
+      if (this.appStore.serverInfo?.online) {
+        return 'Online'
+      }
+      return 'Offline'
+    }
+  }
 }
 </script>
 <style scoped>
@@ -177,8 +196,8 @@ export default {
 
 .dot {
   border-radius: 50%;
+  width: 22px;
   height: 16px;
-  width: 16px;
 }
 
 .right-side {

@@ -3,45 +3,51 @@
     <!-- SideBar -->
     <div class="sidebar">
       <ul class="nav-list">
-        <li @click="navigateTo('general')" class="nav-item caption">General</li>
-        <li @click="navigateTo('advanced')" class="nav-item caption">Advanced</li>
+        <li
+          @click="navigateTo('general')"
+          class="nav-item caption"
+          :class="{ sectionActive: currentSection == 'general' }"
+        >
+          General
+        </li>
+        <li
+          @click="navigateTo('advanced')"
+          class="nav-item caption"
+          :class="{ sectionActive: currentSection === 'advanced' }"
+        >
+          Advanced
+        </li>
       </ul>
     </div>
-    <div class="main">
+
+    <div id="scrollView" class="main">
       <!-- General Section -->
       <div id="general">
         <div class="headline6">General</div>
-        <div class="section">
-          <div class="control-item">
-            <div class="item-title">
-              <div class="body2">Allow Flight</div>
-              <div class="caption key-name">allow-flight</div>
-            </div>
+
+        <ConfigPropertySection
+          :title="'Allow Flight'"
+          :sub-title="'allow-flight'"
+          :discription="'Lorem ipsum dolor sit amet consectetur adipisicing elit. Id ea nihil recusandae saepeplaceat,'"
+        >
+          <template v-slot:input>
             <SwitchButton :default-value="false" :callback="(bool) => {}" />
-          </div>
-          <div class="caption discription">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Id ea nihil recusandae saepe
-            placeat, sed odio est nesciunt mollitia nemo laborum eos veniam esse, nostrum doloribus
-            quibusdam error qui voluptatem?
-          </div>
-        </div>
-        <div class="section">
-          <div class="control-item">
-            <div class="item-title">
-              <div class="body2">Difficulty</div>
-              <div class="caption key-name">difficulty</div>
-            </div>
+          </template>
+        </ConfigPropertySection>
+
+        <ConfigPropertySection
+          :title="'Difficulty'"
+          :sub-title="'Difficulty'"
+          :discription="'Lorem ipsum dolor sit amet consectetur adipisicing elit. Id ea nihil recusandae saepeplaceat,'"
+        >
+          <template v-slot:input>
             <DropDownMenu
               :options="['Peacful', 'Easy', 'Normal', 'Hard']"
               :callback="(value) => {}"
             />
-          </div>
-          <div class="caption discription">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Id ea nihil recusandae saepe
-            placeat, sed odio est nesciunt mollitia nemo laborum eos veniam esse, nostrum doloribus
-            quibusdam error qui voluptatem?
-          </div>
-        </div>
+          </template>
+        </ConfigPropertySection>
+
         <div class="section">
           <div class="control-item">
             <div class="item-title">
@@ -101,13 +107,20 @@
   </div>
 </template>
 <script lang="ts">
-import { DropDownMenu, NumberInput, SwitchButton, TextInput } from '@/component'
+import {
+  DropDownMenu,
+  NumberInput,
+  SwitchButton,
+  TextInput,
+  ConfigPropertySection
+} from '@/component'
 import type { ComponentData } from '@/model'
 import appStore from '@/store'
 import { Logger } from '@/utils/logger'
 
 interface ConfigurationData extends ComponentData {
   click: boolean
+  currentSection: string
 }
 
 export default {
@@ -116,21 +129,51 @@ export default {
     SwitchButton,
     DropDownMenu,
     TextInput,
-    NumberInput
+    NumberInput,
+    ConfigPropertySection
   },
   data(): ConfigurationData {
     return {
       logger: new Logger('Configuration'),
       appStore: appStore,
-      click: false
+      click: false,
+      currentSection: ''
     }
   },
+  mounted() {
+    this.scrollListener()
+  },
   methods: {
+    scrollListener() {
+      const container = document.getElementById('scrollView')
+      const general = document.getElementById('general')
+      const advanced = document.getElementById('advanced')
+      const observer = new IntersectionObserver(
+        (entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              this.currentSection = entry.target.id
+            }
+          })
+        },
+        {
+          root: container,
+          threshold: [0]
+        }
+      )
+      if (advanced) {
+        observer.observe(advanced)
+      }
+
+      if (general) {
+        observer.observe(general)
+      }
+    },
     navigateTo(id: string): void {
       this.logger.info(`navigating to ${id}`)
       const element = document.getElementById(id)
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' })
+        element.scrollIntoView({ behavior: 'smooth', block: 'center' })
       }
     }
   }
@@ -199,7 +242,11 @@ export default {
   margin: 5px 0;
   text-align: start;
   cursor: pointer;
-  border-radius: var(--card-border-radius);
+  border-radius: var(--button-border-radius);
+}
+
+.sectionActive {
+  background-color: var(--color-hover);
 }
 
 .nav-item:hover {

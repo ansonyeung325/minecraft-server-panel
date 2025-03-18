@@ -8,10 +8,11 @@
   --color-secondary: rgb(201, 180, 255);
   --color-primary-light: rgb(242, 242, 252);
   --color-hover: rgb(226, 226, 234);
-  --color-disable: rgb(202, 202, 202);
+  --color-disable: rgb(219, 219, 219);
 
   /* Decoration */
   --card-border-radius: 10px;
+  --button-border-radius: 6px;
 
   /* Font */
   --font-size-headline-5: 24pt;

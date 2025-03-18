@@ -32,6 +32,14 @@
     >
       <font-awesome-icon icon="terminal" class="nav-item-prefix" />Terminal
     </router-link> -->
+      <div class="switch-server">
+        <font-awesome-icon icon="arrow-right-arrow-left" />
+        <div class="caption">Switch Server</div>
+      </div>
+      <div class="logout-button">
+        <font-awesome-icon icon="right-from-bracket" />
+        <div class="caption">Logout</div>
+      </div>
     </div>
   </div>
   <div
@@ -66,6 +74,8 @@ export default {
 @import '@/index.css';
 
 .sidemenu-container {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100%;
   grid-area: 1 / 1 / 3 / 2;
@@ -83,6 +93,7 @@ export default {
 
 .nav-list {
   display: flex;
+  flex: 1;
   flex-direction: column;
   gap: 10px;
   padding: 20px;
@@ -99,7 +110,7 @@ export default {
   color: black;
   outline: none;
   text-decoration: none;
-  border-radius: var(--card-border-radius);
+  border-radius: var(--button-border-radius);
   transition:
     background-color 0.3s,
     color 0.3s;
@@ -111,6 +122,53 @@ export default {
 .active {
   background-color: var(--color-secondary);
   color: var(--color-primary) !important;
+}
+
+.switch-server {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  height: 40px;
+  margin-top: auto;
+  margin-bottom: 0;
+  padding: 14px;
+  color: black;
+  outline: none;
+  text-decoration: none;
+  border-radius: var(--button-border-radius);
+  overflow: hidden;
+  text-overflow: clip;
+  height: 40px;
+  background-color: var(--color-secondary);
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+  cursor: pointer;
+}
+
+.logout-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  height: 40px;
+  margin-top: 4px;
+  padding: 14px;
+  color: black;
+  outline: none;
+  text-decoration: none;
+  border-radius: var(--button-border-radius);
+  overflow: hidden;
+  text-overflow: clip;
+  height: 40px;
+  background-color: var(--color-disable);
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 768px) {
